@@ -2,42 +2,30 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>Ti Amo ❤️</title>
+<title>Brava Amore ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
 body{
     margin:0;
     overflow:hidden;
     font-family:'Inter', sans-serif;
-    background: radial-gradient(circle at top,#fff0f5,#ffe6f0,#ffffff);
+    background: radial-gradient(circle,#fff0f5,#ffe6f0);
 }
 
 h1{
     text-align:center;
-    margin-top:70px;
-    font-family:'Playfair Display', serif;
-    font-size:44px;
+    margin-top:50px;
+    font-size:34px;
     color:#ff1493;
 }
 
-.cat{
+/* GIF */
+.animal{
     position:absolute;
-    font-size:40px;
-    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.15));
-}
-
-.heart{
-    position:absolute;
-    color:#ff4d88;
-    font-size:18px;
-    animation:fall 5s linear infinite;
-}
-
-@keyframes fall{
-    from{transform:translateY(-100px);}
-    to{transform:translateY(110vh);}
+    width:120px;
+    transition:0.2s;
 }
 </style>
 </head>
@@ -45,54 +33,57 @@ h1{
 <body>
 
 <h1>
-🐱 Sei bravissima ❤️<br>
-Hai fatto un sacco di cose incredibili 📚<br>
-Ti amo tantissimo 😘
+BRAVA AMORE ❤️<br>
+HAI SUPERATO MOLTI ESAMI 📚
 </h1>
+
+<!-- GIF 1 -->
+<img class="animal" id="cat" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif">
+
+<!-- GIF 2 -->
+<img class="animal" id="dog" src="https://media.giphy.com/media/dzaUX7CAG0Ihi/giphy.gif">
 
 <script>
 
-// gatti con movimento morbido (ease-like)
-const cats=["🐱","🐈","🐈‍⬛","😺","😻"];
+const cat = document.getElementById("cat");
+const dog = document.getElementById("dog");
 
-for(let i=0;i<14;i++){
+// posizione iniziale
+let cx = 100, cy = 200;
+let dx = 300, dy = 350;
 
-    const c=document.createElement("div");
-    c.className="cat";
-    c.innerHTML=cats[Math.floor(Math.random()*cats.length)];
+cat.style.left = cx+"px";
+cat.style.top = cy+"px";
 
-    let x=Math.random()*90;
-    let y=Math.random()*90;
+dog.style.left = dx+"px";
+dog.style.top = dy+"px";
 
-    let vx=(Math.random()*1.2)+0.4;
-    let vy=(Math.random()*1.2)+0.4;
+// 🐱🐶 reagiscono al mouse
+document.addEventListener("mousemove",(e)=>{
 
-    c.style.left=x+"vw";
-    c.style.top=y+"vh";
+    const mx = e.clientX;
+    const my = e.clientY;
 
-    document.body.appendChild(c);
+    // CAT scappa
+    let catDx = cx - mx;
+    let catDy = cy - my;
 
-    setInterval(()=>{
-        x+=vx;
-        y+=vy;
+    cx += catDx * 0.02;
+    cy += catDy * 0.02;
 
-        if(x<0 || x>95) vx*=-1;
-        if(y<0 || y>90) vy*=-1;
+    cat.style.left = cx+"px";
+    cat.style.top = cy+"px";
 
-        c.style.left=x+"vw";
-        c.style.top=y+"vh";
-    },20);
-}
+    // DOG segue
+    let dogDx = mx - dx;
+    let dogDy = my - dy;
 
-// cuori
-setInterval(()=>{
-    const h=document.createElement("div");
-    h.className="heart";
-    h.innerHTML="❤️";
-    h.style.left=Math.random()*100+"vw";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),5000);
-},160);
+    dx += dogDx * 0.015;
+    dy += dogDy * 0.015;
+
+    dog.style.left = dx+"px";
+    dog.style.top = dy+"px";
+});
 
 </script>
 

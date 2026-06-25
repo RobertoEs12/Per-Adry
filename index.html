@@ -11,28 +11,38 @@ body{
     margin:0;
     height:100vh;
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
     font-family:'Poppins', sans-serif;
-    background: linear-gradient(135deg,#ffe6f0,#fff);
+    background: radial-gradient(circle at top,#ffe6f0,#ffffff);
     overflow:hidden;
 }
 
 h1{
-    font-size:40px;
-    margin-bottom:10px;
+    font-size:50px;
     color:#ff4d88;
+    margin-bottom:10px;
 }
 
 h2{
     font-weight:300;
-    margin-bottom:40px;
     color:#333;
+    margin-bottom:40px;
+}
+
+.card{
+    background:white;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.1);
+    text-align:center;
 }
 
 .buttons{
+    margin-top:20px;
     display:flex;
+    justify-content:center;
     gap:20px;
 }
 
@@ -58,33 +68,74 @@ button{
     background:#ff4d4d;
     color:white;
     position:absolute;
+    transition:0.2s;
+}
+
+/* cuori background */
+.heart{
+    position:absolute;
+    color:pink;
+    font-size:18px;
+    animation:fall 6s linear infinite;
+}
+
+@keyframes fall{
+    from{transform:translateY(-100px);}
+    to{transform:translateY(110vh);}
 }
 </style>
 </head>
 
 <body>
 
-<h1>Eii Adri ❤️</h1>
-<h2>Robb ti deve dire una cosa...</h2>
+<div class="card">
+    <h1>Eii Adri ❤️</h1>
+    <h2>Robb ti deve dire una cosa...</h2>
 
-<div class="buttons">
-    <button id="si" onclick="window.location='amore.html'">SI ❤️</button>
+    <div class="buttons">
+        <button id="si" onclick="window.location='amore.html'">SI ❤️</button>
+    </div>
 </div>
 
 <button id="no">NO 😡</button>
 
+<!-- MUSICA -->
+<audio autoplay loop>
+    <source src="musica.mp3" type="audio/mp3">
+</audio>
+
 <script>
+
+// 😈 NO INTELLIGENTE (SCAPPA DAL CURSORE)
 const no = document.getElementById("no");
 
-function moveButton(){
-    const x = Math.random() * (window.innerWidth - 120);
-    const y = Math.random() * (window.innerHeight - 60);
-    no.style.left = x + "px";
-    no.style.top = y + "px";
-}
+document.addEventListener("mousemove",(e)=>{
+    const rect = no.getBoundingClientRect();
 
-no.addEventListener("mouseover", moveButton);
-no.addEventListener("touchstart", moveButton);
+    const dx = e.clientX - (rect.left + rect.width/2);
+    const dy = e.clientY - (rect.top + rect.height/2);
+
+    const dist = Math.sqrt(dx*dx + dy*dy);
+
+    if(dist < 150){
+        const x = Math.random() * (window.innerWidth - 120);
+        const y = Math.random() * (window.innerHeight - 60);
+
+        no.style.left = x + "px";
+        no.style.top = y + "px";
+    }
+});
+
+// 💖 CUORI
+setInterval(()=>{
+    const heart = document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+},200);
+
 </script>
 
 </body>

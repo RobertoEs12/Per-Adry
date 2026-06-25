@@ -16,16 +16,28 @@ body{
 
 h1{
     text-align:center;
-    margin-top:50px;
-    font-size:34px;
+    margin-top:40px;
+    font-size:32px;
     color:#ff1493;
 }
 
-/* GIF */
-.animal{
+/* OGGETTI CHE CADONO */
+.fall{
     position:absolute;
-    width:120px;
-    transition:0.2s;
+    font-size:35px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall{
+    from{transform:translateY(-100px);}
+    to{transform:translateY(110vh);}
+}
+
+/* 2 animali interattivi */
+.pet{
+    position:absolute;
+    font-size:60px;
+    transition:0.15s;
 }
 </style>
 </head>
@@ -37,52 +49,62 @@ BRAVA AMORE ❤️<br>
 HAI SUPERATO MOLTI ESAMI 📚
 </h1>
 
-<!-- GIF 1 -->
-<img class="animal" id="cat" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif">
-
-<!-- GIF 2 -->
-<img class="animal" id="dog" src="https://media.giphy.com/media/dzaUX7CAG0Ihi/giphy.gif">
-
 <script>
 
-const cat = document.getElementById("cat");
-const dog = document.getElementById("dog");
+const animals = ["🐱","🐶","🐱‍👤","🐕","🐈","🐩"];
 
-// posizione iniziale
-let cx = 100, cy = 200;
-let dx = 300, dy = 350;
+/* 🐱🐶 CADONO */
+for(let i=0;i<25;i++){
+    const el = document.createElement("div");
+    el.className="fall";
+    el.innerHTML = animals[Math.floor(Math.random()*animals.length)];
 
-cat.style.left = cx+"px";
-cat.style.top = cy+"px";
+    el.style.left = Math.random()*100+"vw";
+    el.style.animationDuration = (3 + Math.random()*4)+"s";
 
-dog.style.left = dx+"px";
-dog.style.top = dy+"px";
+    document.body.appendChild(el);
 
-// 🐱🐶 reagiscono al mouse
+    setTimeout(()=>el.remove(),8000);
+}
+
+/* 🐱 e 🐶 INTERATTIVI */
+const cat = document.createElement("div");
+cat.className="pet";
+cat.innerHTML="🐱";
+document.body.appendChild(cat);
+
+const dog = document.createElement("div");
+dog.className="pet";
+dog.innerHTML="🐶";
+document.body.appendChild(dog);
+
+let cx=100, cy=200;
+let dx=300, dy=300;
+
+cat.style.left=cx+"px";
+cat.style.top=cy+"px";
+
+dog.style.left=dx+"px";
+dog.style.top=dy+"px";
+
 document.addEventListener("mousemove",(e)=>{
 
-    const mx = e.clientX;
-    const my = e.clientY;
+    let mx=e.clientX;
+    let my=e.clientY;
 
-    // CAT scappa
-    let catDx = cx - mx;
-    let catDy = cy - my;
+    // 🐱 scappa dal mouse
+    cx += (cx - mx)*0.03;
+    cy += (cy - my)*0.03;
 
-    cx += catDx * 0.02;
-    cy += catDy * 0.02;
+    // 🐶 segue il mouse
+    dx += (mx - dx)*0.02;
+    dy += (my - dy)*0.02;
 
-    cat.style.left = cx+"px";
-    cat.style.top = cy+"px";
+    cat.style.left=cx+"px";
+    cat.style.top=cy+"px";
 
-    // DOG segue
-    let dogDx = mx - dx;
-    let dogDy = my - dy;
-
-    dx += dogDx * 0.015;
-    dy += dogDy * 0.015;
-
-    dog.style.left = dx+"px";
-    dog.style.top = dy+"px";
+    dog.style.left=dx+"px";
+    dog.style.top=dy+"px";
 });
 
 </script>

@@ -11,7 +11,7 @@ body{
     margin:0;
     overflow:hidden;
     font-family:'Inter', sans-serif;
-    background: radial-gradient(circle,#fff0f5,#ffe6f0);
+    background:linear-gradient(135deg,#fff0f5,#ffe6f0);
 }
 
 h1{
@@ -21,7 +21,6 @@ h1{
     color:#ff1493;
 }
 
-/* OGGETTI CHE CADONO */
 .fall{
     position:absolute;
     font-size:35px;
@@ -33,11 +32,10 @@ h1{
     to{transform:translateY(110vh);}
 }
 
-/* 2 animali interattivi */
 .pet{
     position:absolute;
     font-size:60px;
-    transition:0.15s;
+    transition:0.2s;
 }
 </style>
 </head>
@@ -51,29 +49,29 @@ HAI SUPERATO MOLTI ESAMI 📚
 
 <script>
 
-const animals = ["🐱","🐶","🐱‍👤","🐕","🐈","🐩"];
+const items = ["🐱","🐶","🐱","🐶","🐈","🐕"];
 
-/* 🐱🐶 CADONO */
-for(let i=0;i<25;i++){
-    const el = document.createElement("div");
+/* CADUTA */
+for(let i=0;i<20;i++){
+    const el=document.createElement("div");
     el.className="fall";
-    el.innerHTML = animals[Math.floor(Math.random()*animals.length)];
+    el.innerHTML=items[Math.floor(Math.random()*items.length)];
 
-    el.style.left = Math.random()*100+"vw";
-    el.style.animationDuration = (3 + Math.random()*4)+"s";
+    el.style.left=Math.random()*100+"vw";
+    el.style.animationDuration=(3+Math.random()*4)+"s";
 
     document.body.appendChild(el);
 
     setTimeout(()=>el.remove(),8000);
 }
 
-/* 🐱 e 🐶 INTERATTIVI */
-const cat = document.createElement("div");
+/* INTERATTIVI */
+const cat=document.createElement("div");
 cat.className="pet";
 cat.innerHTML="🐱";
 document.body.appendChild(cat);
 
-const dog = document.createElement("div");
+const dog=document.createElement("div");
 dog.className="pet";
 dog.innerHTML="🐶";
 document.body.appendChild(dog);
@@ -89,16 +87,16 @@ dog.style.top=dy+"px";
 
 document.addEventListener("mousemove",(e)=>{
 
-    let mx=e.clientX;
-    let my=e.clientY;
+    const mx=e.clientX;
+    const my=e.clientY;
 
-    // 🐱 scappa dal mouse
-    cx += (cx - mx)*0.03;
-    cy += (cy - my)*0.03;
+    // gatto scappa
+    cx += (cx - mx) * 0.03;
+    cy += (cy - my) * 0.03;
 
-    // 🐶 segue il mouse
-    dx += (mx - dx)*0.02;
-    dy += (my - dy)*0.02;
+    // cane segue
+    dx += (mx - dx) * 0.02;
+    dy += (my - dy) * 0.02;
 
     cat.style.left=cx+"px";
     cat.style.top=cy+"px";

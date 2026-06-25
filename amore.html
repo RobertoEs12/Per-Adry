@@ -17,13 +17,15 @@ body{
 h1{
     text-align:center;
     margin-top:60px;
-    color:#ff1493;
     font-size:42px;
+    color:#ff1493;
 }
 
 .cat{
     position:absolute;
-    font-size:50px;
+    width:80px;
+    height:80px;
+    background-size:cover;
 }
 
 .heart{
@@ -50,46 +52,49 @@ Ti amo tantissimo 😘
 
 <script>
 
-// 🐱 GATTI CHE SI MUOVONO DAVVERO
-for(let i=0;i<10;i++){
-    let cat=document.createElement("div");
+// 🐱 GATTI MIGLIORI (GIF STYLE EMOJI SIMULATA)
+const cats = [
+"🐱","🐈","🐈‍⬛","😺","😸"
+];
+
+for(let i=0;i<12;i++){
+
+    const cat = document.createElement("div");
     cat.className="cat";
-    cat.innerHTML="🐱";
+    cat.innerHTML = cats[Math.floor(Math.random()*cats.length)];
 
-    let x=Math.random()*90;
-    let y=Math.random()*90;
+    let x = Math.random()*90;
+    let y = Math.random()*90;
 
-    let vx=(Math.random()*1.5)+0.5;
-    let vy=(Math.random()*1.5)+0.5;
+    let vx = (Math.random()*2)+0.5;
+    let vy = (Math.random()*2)+0.5;
 
-    cat.style.left=x+"vw";
-    cat.style.top=y+"vh";
+    cat.style.left = x+"vw";
+    cat.style.top = y+"vh";
 
     document.body.appendChild(cat);
 
     setInterval(()=>{
-        x+=vx;
-        y+=vy;
+        x += vx;
+        y += vy;
 
-        if(x<0 || x>95) vx*=-1;
-        if(y<0 || y>90) vy*=-1;
+        if(x < 0 || x > 95) vx *= -1;
+        if(y < 0 || y > 90) vy *= -1;
 
-        cat.style.left=x+"vw";
-        cat.style.top=y+"vh";
-    },30);
+        cat.style.left = x+"vw";
+        cat.style.top = y+"vh";
+    },25);
 }
 
-// ❤️ CUORI CHE CADONO
+// ❤️ CUORI
 setInterval(()=>{
-    const heart=document.createElement("div");
-    heart.className="heart";
-    heart.innerHTML="❤️";
-    heart.style.left=Math.random()*100+"vw";
-
-    document.body.appendChild(heart);
-
-    setTimeout(()=>heart.remove(),5000);
-},250);
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+},200);
 
 </script>
 

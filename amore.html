@@ -4,109 +4,92 @@
 <meta charset="UTF-8">
 <title>Ti Amo ❤️</title>
 
-<style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
+<style>
 body{
     margin:0;
     overflow:hidden;
-    background:#fff0f5;
-    font-family:Arial;
+    font-family:'Poppins', sans-serif;
+    background: radial-gradient(circle,#fff0f5,#ffe6f0);
 }
 
 h1{
     text-align:center;
-    margin-top:50px;
+    margin-top:60px;
     color:#ff1493;
-    font-size:48px;
+    font-size:42px;
 }
 
 .cat{
     position:absolute;
-    font-size:60px;
+    font-size:50px;
 }
 
 .heart{
     position:absolute;
     color:red;
-    font-size:25px;
+    font-size:20px;
     animation:fall 5s linear infinite;
 }
 
 @keyframes fall{
-    from{
-        transform:translateY(-100px);
-    }
-    to{
-        transform:translateY(110vh);
-    }
+    from{transform:translateY(-100px);}
+    to{transform:translateY(110vh);}
 }
-
 </style>
 </head>
 
 <body>
 
 <h1>
-🐱 Sei bravissima 🐱<br><br>
-Hai passato un sacco di esami 📚❤️<br><br>
-Ti amo tantissimo 😘❤️
+🐱 Sei bravissima ❤️<br>
+Hai passato un sacco di esami 📚<br>
+Ti amo tantissimo 😘
 </h1>
 
 <script>
 
-// GATTI CHE SI MUOVONO
-
-for(let i=0;i<12;i++){
-
+// 🐱 GATTI CHE SI MUOVONO DAVVERO
+for(let i=0;i<10;i++){
     let cat=document.createElement("div");
-
     cat.className="cat";
     cat.innerHTML="🐱";
 
-    cat.style.left=Math.random()*90+"vw";
-    cat.style.top=Math.random()*90+"vh";
+    let x=Math.random()*90;
+    let y=Math.random()*90;
+
+    let vx=(Math.random()*1.5)+0.5;
+    let vy=(Math.random()*1.5)+0.5;
+
+    cat.style.left=x+"vw";
+    cat.style.top=y+"vh";
 
     document.body.appendChild(cat);
 
-    let vx=(Math.random()*4)+1;
-    let vy=(Math.random()*4)+1;
-
-    let x=parseFloat(cat.style.left);
-    let y=parseFloat(cat.style.top);
-
     setInterval(()=>{
-
         x+=vx;
         y+=vy;
 
-        if(x>95 || x<0) vx*=-1;
-        if(y>90 || y<0) vy*=-1;
+        if(x<0 || x>95) vx*=-1;
+        if(y<0 || y>90) vy*=-1;
 
         cat.style.left=x+"vw";
         cat.style.top=y+"vh";
-
     },30);
-
 }
 
-// CUORI CHE CADONO
-
+// ❤️ CUORI CHE CADONO
 setInterval(()=>{
-
     const heart=document.createElement("div");
-
     heart.className="heart";
     heart.innerHTML="❤️";
-
     heart.style.left=Math.random()*100+"vw";
 
     document.body.appendChild(heart);
 
-    setTimeout(()=>{
-        heart.remove();
-    },5000);
-
-},300);
+    setTimeout(()=>heart.remove(),5000);
+},250);
 
 </script>
 

@@ -15,24 +15,23 @@ body{
     align-items:center;
     font-family:'Inter', sans-serif;
     background: radial-gradient(circle at top,#ffd1dc,#ffffff);
+    overflow:hidden;
 }
 
-.card{
-    background:rgba(255,255,255,0.8);
-    padding:50px;
-    border-radius:25px;
+.container{
     text-align:center;
-    box-shadow:0 20px 60px rgba(0,0,0,0.1);
 }
 
 h1{
+    font-size:38px;
     color:#ff4d88;
     margin-bottom:10px;
 }
 
-p{
+h2{
+    font-weight:400;
     color:#444;
-    margin-bottom:30px;
+    margin-bottom:120px;
 }
 
 button{
@@ -41,25 +40,67 @@ button{
     border:none;
     border-radius:15px;
     cursor:pointer;
-    background:#4CAF50;
-    color:white;
-    transition:0.2s;
 }
 
-button:hover{
+#si{
+    background:#4CAF50;
+    color:white;
+}
+
+#si:hover{
     transform:scale(1.08);
+}
+
+#no{
+    background:#ff4d4d;
+    color:white;
+    position:absolute;
+    transition:0.2s;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-    <h1>Eii Adri ❤️</h1>
-    <p>Robb ti deve dire una cosa...</p>
+<div class="container">
+    <h1>Ei Adri ❤️ Robb ti deve dire una cosa</h1>
+    <h2>Vuoi sapere cosa?</h2>
 
-    <button onclick="window.location='amore.html'">SI ❤️</button>
+    <button id="si" onclick="window.location='amore.html'">SI ❤️</button>
 </div>
+
+<button id="no">NO 😈</button>
+
+<script>
+
+const no = document.getElementById("no");
+
+// posizione iniziale
+no.style.left = "60%";
+no.style.top = "65%";
+
+// 😈 NO intelligente
+document.addEventListener("mousemove",(e)=>{
+
+    const rect = no.getBoundingClientRect();
+
+    const dx = e.clientX - (rect.left + rect.width/2);
+    const dy = e.clientY - (rect.top + rect.height/2);
+
+    const dist = Math.sqrt(dx*dx + dy*dy);
+
+    if(dist < 140){
+
+        const angle = Math.atan2(dy,dx);
+
+        const moveX = Math.cos(angle) * -200;
+        const moveY = Math.sin(angle) * -200;
+
+        no.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    }
+});
+
+</script>
 
 </body>
 </html>
